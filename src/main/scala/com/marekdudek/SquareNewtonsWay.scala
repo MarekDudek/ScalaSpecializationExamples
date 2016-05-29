@@ -1,7 +1,8 @@
 package com.marekdudek
 
+import com.marekdudek.Approximations._
+
 import scala.annotation.tailrec
-import scala.math.abs
 
 object SquareNewtonsWay {
 
@@ -10,23 +11,10 @@ object SquareNewtonsWay {
     @tailrec
     def sqrIter(guess: Double): Double = {
 
-      def isGoodEnough = {
-        val epsilon = 0.001
-        def distance(a: Double, b: Double) =
-          abs(a - b)
-
-        val relativeDistance = distance(guess * guess, x) / x
-        relativeDistance < epsilon
-      }
-
-      def improve = {
-        def mean(a: Double, b: Double) =
-          (a + b) / 2
-
+      def improve =
         mean(guess, x / guess)
-      }
 
-      if (isGoodEnough) guess else sqrIter(improve)
+      if (closeEnough(guess * guess, x)) guess else sqrIter(improve)
     }
 
     sqrIter(1.0)
