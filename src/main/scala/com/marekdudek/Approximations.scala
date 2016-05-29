@@ -15,7 +15,7 @@ object Approximations {
   def closeEnough(a: Double, b: Double): Boolean =
     relativeDistance(a, b) < tolerance
 
-  def mean(a: Double, b: Double): Double =
+  def average(a: Double, b: Double): Double =
     (a + b) / 2
 
 }
