@@ -1,25 +1,34 @@
 package com.marekdudek
 
+import scala.annotation.tailrec
 import scala.math.abs
 
 object SquareNewtonsWay {
 
   def sqrt(x: Double): Double = {
 
-    def sqrtIter(guess: Double): Double = {
+    @tailrec
+    def sqrIter(guess: Double): Double = {
 
-      def isGoodEnough =
-        abs(guess * guess - x) / x < 0.001
+      def isGoodEnough = {
+        val epsilon = 0.001
+        def distance(a: Double, b: Double) =
+          abs(a - b)
 
-      def improve =
-        (guess + x / guess) / 2
+        val relativeDistance = distance(guess * guess, x) / x
+        relativeDistance < epsilon
+      }
 
-      if (isGoodEnough)
-        guess
-      else
-        sqrtIter(improve)
+      def improve = {
+        def mean(a: Double, b: Double) =
+          (a + b) / 2
+
+        mean(guess, x / guess)
+      }
+
+      if (isGoodEnough) guess else sqrIter(improve)
     }
 
-    sqrtIter(1.0)
+    sqrIter(1.0)
   }
 }
