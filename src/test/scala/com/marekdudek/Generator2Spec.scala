@@ -1,6 +1,6 @@
 package com.marekdudek
 
-import com.marekdudek.Generator2.{booleans, integers, pairs}
+import com.marekdudek.Generator2.{booleans, integers, lists, pairs}
 import org.scalatest.{FlatSpec, Matchers}
 
 class Generator2Spec extends FlatSpec with Matchers {
@@ -21,5 +21,19 @@ class Generator2Spec extends FlatSpec with Matchers {
     // then
     val ps = for (i <- 1 to 100)
       yield intBoolPairs.generate
+  }
+
+  def test[T](g: Generator2[T], numTimes: Int = 100)(test: T => Boolean): Unit =
+    for (i <- 0 until numTimes) {
+      val value = g.generate
+      assert(test(value), "test failed for " + value)
+    }
+
+  "pairs" should "be tested with randomised examples" in {
+
+    test(pairs(lists, lists)) {
+      case (xs, ys) =>
+        (xs ++ ys).length >= xs.length
+    }
   }
 }
