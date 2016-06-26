@@ -23,7 +23,7 @@ class JsonSpec extends FlatSpec with Matchers {
         ))
       ))
     ))
-    
+
     val list = for {
       JObj(bindings) <- List(data)
       JSeq(phones) = bindings("phoneNumbers")
