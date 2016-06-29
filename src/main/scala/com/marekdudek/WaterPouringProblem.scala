@@ -4,9 +4,9 @@ class WaterPouringProblem(capacity: Vector[Int]) {
 
   type State = Vector[Int]
 
-  val glasses = 0 until capacity.length
+  val glasses = capacity.indices
   val initialState = capacity map (x => 0)
-  val initialPath = new Path(Nil)
+  val initialPath = new Path(Nil, initialState)
 
   sealed trait Move {
     def change(state: State): State
@@ -34,12 +34,10 @@ class WaterPouringProblem(capacity: Vector[Int]) {
       (for (g <- glasses) yield Fill(g)) ++
       (for (from <- glasses; to <- glasses if from != to) yield Pour(from, to))
 
-  case class Path(history: List[Move]) {
-    def endState: State =
-      (history foldRight initialState) (_ change _)
+  case class Path(history: List[Move], endState: State) {
 
     def extend(move: Move): Path =
-      new Path(move :: history)
+      new Path(move :: history, move change endState)
 
     override def toString: String =
       (history.reverse mkString " ") + " --> " + endState
