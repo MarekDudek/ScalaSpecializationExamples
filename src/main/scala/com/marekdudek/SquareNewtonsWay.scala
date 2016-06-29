@@ -23,4 +23,11 @@ object SquareNewtonsWay {
 
   def sqrt2(x: Double): Double =
     fixedPoint(y => average(x / y, y))(1.0)
+
+  def sqrtStream(x: Double): Stream[Double] = {
+    def improve(guess: Double) =
+      average(guess, x / guess)
+    lazy val guesses: Stream[Double] = 1 #:: (guesses map improve)
+    guesses
+  }
 }

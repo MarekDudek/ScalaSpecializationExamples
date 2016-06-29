@@ -1,5 +1,6 @@
 package com.marekdudek
 
+import com.marekdudek.Approximations.closeEnough
 import com.marekdudek.SquareNewtonsWay._
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -27,5 +28,10 @@ class SquareNewtonsWaySpec extends FlatSpec with Matchers {
 
   "sqrt2" should "work for large numbers" in {
     sqrt2(1e60) shouldBe 1e30 +- 1e26
+  }
+
+  "sqrt" should "be possible to define using streams" in {
+    val approximations = sqrtStream(2) filter (x => closeEnough(x * x, 2))
+    approximations.head shouldBe 1.4142 +- 0.0001
   }
 }
