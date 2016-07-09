@@ -19,6 +19,7 @@ class WaterPouringProblemSpec extends FlatSpec with Matchers {
       wpp.Pour(1, 0),
       wpp.Fill(1),
       wpp.Pour(1, 0)
-    ).reverse, Vector(4, 6).asInstanceOf[WaterPouringProblem#State])
+    ).reverse,
+      Vector(4, 6).asInstanceOf[WaterPouringProblem#State])
   }
 }
