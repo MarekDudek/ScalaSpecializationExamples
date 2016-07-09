@@ -56,4 +56,14 @@ class LoopsSpec extends FlatSpec with Matchers {
     // then
     a shouldBe 0
   }
+
+  "nested for loop" should "work" in {
+    // when
+    val combinations = for {
+      i <- 1 to 3
+      j <- "abc"
+    } yield (i, j)
+    // then
+    combinations should have size 9
+  }
 }

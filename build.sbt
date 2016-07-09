@@ -7,7 +7,8 @@ scalacOptions ++= Seq("-deprecation", "-explaintypes", "-feature", "-unchecked",
 
 libraryDependencies ++= Seq(
   "org.scalactic" %% "scalactic" % "2.2.6" withSources() withJavadoc(),
-  "org.scalatest" %% "scalatest" % "2.2.6" % "test" withSources() withJavadoc()
+  "org.scalatest" %% "scalatest" % "2.2.6" % "test" withSources() withJavadoc(),
+  "org.scalacheck" %% "scalacheck" % "1.12.1" % "test" withSources() withJavadoc()
 )
 
 scalastyleConfig := file("project/scalastyle-config.xml")
